@@ -244,7 +244,7 @@ int allEvenBits(int x) {
  *  
  *  if x and y, and x and result are 1 << 31, subtraction fails, otherwise, ok
  */
-    int subOK(int x, int y) {
+int subOK(int x, int y) {
     /*sets result = x-y using 2's complement*/
     int result = x + (~y + 1);        
   
