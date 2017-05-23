@@ -39,14 +39,12 @@ void bytes_free(bytes_t * const bytes) {
 	bytes->data = NULL;
 }
 
-void bytes_fprintf(FILE * out, const bytes_t * const bytes)
-{
+void bytes_fprintf(FILE * out, const bytes_t * const bytes) {
 	const uint8_t *data = (bytes->data == NULL) ? bytes->dflt : bytes->data;
 
 	fprintf(out, "          ");
 
-	for (size_t b = 0; b < BYTES_PER_LINE; b++)
-	{
+	for (size_t b = 0; b < BYTES_PER_LINE; b++) {
 		fprintf(out, "%02zx ", b);
 	}
 	fprintf(out, "\n");
@@ -55,15 +53,13 @@ void bytes_fprintf(FILE * out, const bytes_t * const bytes)
 	fprintf(out, " -----------------------------------------------");
 	fprintf(out, "\n");
 
- 	for (size_t x = 0; x < bytes->usage; x += 16)
-	{
+ 	for (size_t x = 0; x < bytes->usage; x += 16) {
 		size_t min = (bytes->usage  >= x + BYTES_PER_LINE)
 				? x + BYTES_PER_LINE : bytes->usage;
 
 		fprintf(out, "%08zx  ", x);
 
-		for (size_t y = x; y < min; y++)
-		{
+		for (size_t y = x; y < min; y++) {
 			fprintf(out, "%02"PRIx8" ", data[y]);
 		}
 		fprintf(out, "\n");
@@ -73,7 +69,6 @@ void bytes_fprintf(FILE * out, const bytes_t * const bytes)
 	fprintf(out, " -----------------------------------------------");
 	fprintf(out, "\n");
 	fprintf(out, "\n");
-
 }
 
 bool bytes_empty(const bytes_t * const bytes) {
@@ -231,6 +226,7 @@ bool bytes_insert(bytes_t * bytes, size_t index,
 	else if (bytes->usage + len <= bytes->dim && bytes->data != NULL) {
 		if (index <= bytes->usage - 1 && bytes->usage != 0) {
 			uint8_t* ptr = bytes->data;
+			
 			for (uint8_t i = bytes->usage - 1; i >= index; i--) {
 				*(ptr + i + len) = *(ptr + i);
 			}
@@ -277,6 +273,7 @@ bool bytes_erase(bytes_t * const bytes, size_t index, size_t len) {
 		return false;
 	}
 	uint8_t erase_len;
+	
 	if (index + len > bytes->usage) {
 		erase_len = bytes->usage - index;
 	} 
@@ -290,16 +287,19 @@ bool bytes_erase(bytes_t * const bytes, size_t index, size_t len) {
 	} 
 	else {
 		uint8_t* newptr = (uint8_t*) calloc(bytes->usage, sizeof(uint8_t));
+		
 		for (uint8_t first = 0; first < index; first++) { 
 			*(newptr + first) = *(bytes->data + first);
 		}
 		uint8_t nextctr = index;
+		
 		for (uint8_t next = index + erase_len; next < bytes->usage; next++) { 
 			*(newptr + nextctr) = *(bytes->data + next);
 			nextctr++;
 		}
 		free(bytes->data);
 		bytes->data = (uint8_t* ) malloc(bytes->dim * sizeof(uint8_t));
+		
 		for (uint8_t i = 0; i < bytes->usage - erase_len; i++) { 
 			*(bytes->data + i) = *(newptr + i);
 		}
@@ -314,6 +314,7 @@ uint8_t * bytes_range(const bytes_t * const bytes, range_t *range) {
 		return NULL;
 	} 
 	uint8_t * ptr;
+	
 	if (bytes->data != NULL) {
 		ptr = bytes->data;
 		ptr += range->start;
@@ -340,6 +341,7 @@ bool bytes_copy(bytes_t * const dest, const bytes_t * const src) {
 		free(dest->data);
 		dest->data = (uint8_t* ) malloc(dest->dim * sizeof(uint8_t));
 		uint8_t* ptr = dest->data;
+		
 		for (uint8_t i = 0; i < src->usage; i++) {
 			*ptr = src->dflt[i];
 			ptr++;
@@ -352,6 +354,7 @@ bool bytes_copy(bytes_t * const dest, const bytes_t * const src) {
 		dest->data = (uint8_t* ) malloc(src->dim * sizeof(uint8_t));
 		uint8_t* dptr = dest->data;
 		uint8_t* sptr = src->data;
+		
 		for (uint8_t i = 0; i < src->usage; i++) {
 			*(dptr + i) = *(sptr + i);
 		}
