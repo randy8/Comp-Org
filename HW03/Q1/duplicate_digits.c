@@ -16,26 +16,25 @@
 #include "duplicate_digits.h"
 
 uint64_t duplicate_digits(uint64_t Value, uint8_t N) {
-uint64_t Accum;
+	uint64_t Accum;
 
-if (N == 0) {
-   return Accum;
-}
-else if (Value == 0) {
-   return 0;
-}
+	if (N == 0) {
+	   return Accum;
+	}
+	else if (Value == 0) {
+	   return 0;
+	}
 
-Accum = 0;
-uint64_t x = Value, temp = 0, power = 1;
- 
-while (x >= 1) {
-temp = x % 10;
-x /= 10;
-for (uint64_t i = 0; i < N; i++) {
-	Accum += temp*power;
-	power *= 10;
-  }
+	Accum = 0;
+	uint64_t x = Value, temp = 0, power = 1;
+	 
+	while (x >= 1) {
+		temp = x % 10;
+		x /= 10;
+		for (uint64_t i = 0; i < N; i++) {
+			Accum += temp*power;
+			power *= 10;
+		  }
+	}
+	return Accum;
 }
-return Accum;
-}
-
