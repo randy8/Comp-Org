@@ -1,0 +1,39 @@
+How to use the Bytes testing code:
+--------------------------------------------------------------------------------
+
+1.  Unpack test.tar, inside you should find directory containing five files:
+
+    main32.o          - compiled main program (32-bit)
+    main64.o          - compiled main program (32-bit)
+    bytes.h           - Bytes type header file
+    test_bytes.py     - python script that runs all the tests in gdb
+    pexpect.py        - you can ignore this file
+
+2.  Copy your bytes.c file into the directory.
+
+3.  Compile your bytes.c with the test code.
+
+    For a 32-bit build:
+       gcc -o driver -std=c99 -Wall -ggdb3 -m32 main32.o bytes.c 
+
+    For a 64-bit build (this is what almost every one wants):
+       gcc -o driver -std=c99 -Wall -ggdb3 -m64 main64.o bytes.c 
+
+    It should not matter which you use, but you may not be able to perform a 
+    32-bit build if you installed a 64-bit version of Linux (w/o installing 
+    some additional libraries).
+
+4. Run the python test script.
+
+    To intialize or make different tests (so do this first): 
+
+    [prompt]$ python test_bytes.py 
+
+    To run your code with the test:
+
+    [prompt]$ python test_bytes.py ./driver 
+
+    This is the same test code used on the Curator. Make sure to look at
+    gdbOutput.txt, it will give you a hint as to if/where your code crashes.
+
+5.  When you modify your bytes.c, remember to compile again.
