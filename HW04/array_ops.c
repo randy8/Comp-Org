@@ -57,8 +57,6 @@ size_t array_insert(int array[], size_t usage, size_t index, int value) {
     return usage + 1;
 }
 
-
-
 size_t array_erase(int array[], size_t usage, size_t index, size_t count) {
     if (index >= usage) {
         return usage;
