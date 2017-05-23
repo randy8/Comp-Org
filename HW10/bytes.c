@@ -126,6 +126,7 @@ bool bytes_get(const bytes_t * const bytes, size_t index,
 		else { 
 			for (uint8_t i = 0; i < newWidth; i++) {
 				uint64_t multiplier = 1;
+				
 				for (uint64_t j = 0; j < i; j++) {
 					multiplier *= 256;
 				}
@@ -138,6 +139,7 @@ bool bytes_get(const bytes_t * const bytes, size_t index,
 	} 
 	else { 
 		uint64_t accumulator = 0;
+		
 		if (order == 0) { 
 			for (int i = index + newWidth; i > index; i--) {
 				uint64_t multiplier = 1;
