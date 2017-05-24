@@ -18,14 +18,11 @@
 // Randy Liang <randy8>
 #include "txtfile.h"
 
-bool txtfile_read(FILE *in, string_t * const result)
-{
+bool txtfile_read(FILE *in, string_t * const result) {
 	int size = LINE_CHUNK;
 	char * temp = malloc(size);
-	while (fgets(temp, size, (FILE*)in) != NULL)
-	{
-		if (temp == NULL)
-		{
+	while (fgets(temp, size, (FILE*)in) != NULL) {
+		if (temp == NULL) {
 			return false;
 		}
 		int l = strlen(temp);
@@ -37,8 +34,7 @@ bool txtfile_read(FILE *in, string_t * const result)
 	return true;
 }
 
-bool txtfile_readlines(FILE *in, string_t ** const result, size_t * num_lines)
-{
+bool txtfile_readlines(FILE *in, string_t ** const result, size_t * num_lines) {
 	string_t temp;
 	string_init(&temp);
 	txtfile_read(in, &temp);
